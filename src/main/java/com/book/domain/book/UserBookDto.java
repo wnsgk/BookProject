@@ -1,5 +1,6 @@
 package com.book.domain.book;
 
+import com.book.domain.user.User;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
@@ -9,9 +10,9 @@ import java.util.List;
 @Getter
 public class UserBookDto {
 
-    private Long userId;
+    private User user;
 
-    private Long bookId;
+    private Book book;
 
     private Integer star;
 
@@ -24,4 +25,14 @@ public class UserBookDto {
     private boolean open;
 
     private List<String> tags = new ArrayList<>();
+
+    public UserBook toEntity(){
+        return UserBook.builder()
+                .user(this.user)
+                .book(this.book)
+                .star(this.star)
+                .comment(this.comment)
+                .open(this.open)
+                .build();
+    }
 }

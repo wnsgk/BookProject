@@ -48,8 +48,8 @@ public class User {
         this.createAt = LocalDateTime.now();
     }
 
-    public void updateName(String name){
-        this.name = name;
+    public void updateName(UserUpdateDto updateDto){
+        this.name = updateDto.getName();
     }
 
     public boolean findBook(Long bookId){
@@ -86,4 +86,7 @@ public class User {
         this.email = email;
     }
 
+    public void updatePassword(String password) {
+        this.password = password;
+    }
 }

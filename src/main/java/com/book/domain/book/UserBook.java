@@ -60,12 +60,13 @@ public class UserBook {
     }
 
     @Builder
-    public UserBook(User user, Book book, Integer star, String comment, List<UserBookTag> tags){
+    public UserBook(User user, Book book, Integer star, String comment, List<UserBookTag> tags, boolean open){
         this.user = user;
         this.book = book;
         this.star = star;
         this.comment = comment;
         this.tags = tags;
+        this.open = open;
     }
 
     public void updateUserBook(UserBookDto userBookDto){
@@ -85,6 +86,6 @@ public class UserBook {
     }
 
     public void addTag(UserBookTag tag){
-        tags.add(tag);
+        this.tags.add(tag);
     }
 }
