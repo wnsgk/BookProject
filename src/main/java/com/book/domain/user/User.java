@@ -20,6 +20,8 @@ public class User {
     @Column(name = "user_id")
     private Long id;
 
+    private String username;
+
     private String password;
 
     private String name;
@@ -27,6 +29,12 @@ public class User {
     private String email;
 
     private LocalDateTime createAt;
+
+    private String role;
+
+    //oauth
+    private String provider;
+    private String providerId;
 
     @OneToMany(mappedBy = "user")
     private List<UserBook> userBooks = new ArrayList<>();
@@ -54,7 +62,7 @@ public class User {
 
     public boolean findBook(Long bookId){
         for (UserBook book:this.userBooks) {
-            if(book.getBook().getId() == bookId) {
+            if(book.getBook().getId().equals(bookId)) {
                 return true;
             }
         }
@@ -68,25 +76,37 @@ public class User {
     public List<UserBook> getBookInShelf(String name){
         List<UserBook> books = new ArrayList<>();
         for(UserBook book : this.userBooks){
-            if(book.getShelf() == name) {
+            if(book.getShelf().equals(name)) {
                 books.add(book);
             }
         }
         return books;
     }
 
-//    public void deleteShelf(String name){
-//        this.shelf.remove(name);
-//    }
-
     @Builder
-    public User(String password, String name, String email){
+    public User(String username, String password, String name, String email, String role, String provider, String providerId){
+        this.username = username;
         this.password = password;
         this.name = name;
         this.email = email;
+        this.role = role;
+        this.provider = provider;
+        this.providerId = providerId;
     }
 
     public void updatePassword(String password) {
         this.password = password;
+    }
+
+    public void deleteUserBook(UserBook userBook){
+        this.userBooks.remove(userBook);
+    }
+
+    public ProfileResponse toProfileResponse(boolean me){
+        return ProfileResponse.builder()
+                .email(this.email)
+                .name(this.name)
+                .me(me)
+                .build();
     }
 }
