@@ -24,6 +24,8 @@ public class UserBookTag {
     @JoinColumn(name = "tag_id")
     private Tag tag;
 
-
-    //== 연관관계 메스드 ==//
+    public void delete(){
+        this.tag.deleteUserBookTag(this);
+        this.userBook.deleteTag(this);
+    }
 }

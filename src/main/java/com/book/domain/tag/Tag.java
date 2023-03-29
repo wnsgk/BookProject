@@ -32,6 +32,7 @@ public class Tag {
     public void addTag(UserBookTag userBookTag){
         this.userBookTags.add(userBookTag);
     }
+
     public boolean deleteUserBookTag(UserBookTag userBookTag) {
         this.userBookTags.remove(userBookTag);
         if (this.userBookTags.isEmpty()) {
