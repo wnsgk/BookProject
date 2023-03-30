@@ -1,6 +1,7 @@
 package com.book.service;
 
 import com.book.domain.user.*;
+import com.book.exception.DuplicateEmailException;
 import com.book.exception.PasswordException;
 import com.book.exception.UserNotFoundException;
 import com.book.repository.UserRepository;
@@ -17,10 +18,17 @@ public class UserService {
     private final BCryptPasswordEncoder encoder;
 
     @Transactional
-    public User register(UserCreateDto userCreateDto){
+    public User signUp(UserCreateDto userCreateDto){
+        checkDuplicateUser(userCreateDto.getEmail());
         User user = userCreateDto.toEntity();
         userRepository.save(user);
         return user;
+    }
+
+    public void checkDuplicateUser(String email){
+        userRepository.findByEmail(email).ifPresent(param -> {
+            throw new DuplicateEmailException("중복된 이메일입니다.");
+        });
     }
 
     public User getUserInfo(String email){
