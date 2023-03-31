@@ -1,3 +1,10 @@
+aladin:
+  url: http://www.aladin.co.kr/ttb/api/ItemLookUp.aspx?ttbkey=비밀키&itemIdType=ISBN13&output=js&Version=20131101&ItemId={isbn}
+naver:
+  id: kagT2dpZczauYaNXd2nY
+  secret: W4h67L6mfH
+secret:
+  key: W4h67L6mfH
 spring:
   server:
     servlet:
@@ -12,7 +19,7 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
     show-sql: true
