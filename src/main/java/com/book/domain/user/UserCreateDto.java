@@ -1,14 +1,19 @@
 package com.book.domain.user;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
+
+import javax.validation.constraints.Email;
 
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class UserCreateDto {
 
     private String name;
 
+    @Email
     private String email;
 
     private String password;

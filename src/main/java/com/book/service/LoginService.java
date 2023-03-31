@@ -1,6 +1,7 @@
 package com.book.service;
 
 import com.book.domain.user.LoginDto;
+import com.book.domain.user.User;
 import com.book.exception.UserNotFoundException;
 import com.book.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -22,7 +23,9 @@ public class LoginService {
     public void loginValidation(LoginDto loginDto) {
         String email = loginDto.getEmail();
         String encPassword = encoder.encode(loginDto.getPassword());
-        if(!userRepository.existsByEmailAndPassword(email, encPassword)){
+        User user = userRepository.findByEmail(email).orElseThrow(UserNotFoundException::new);
+
+        if(!encPassword.equals(encPassword)){
             throw new UserNotFoundException("아이디 또는 비밀번호가 잘못되었습니다.");
         }
     }

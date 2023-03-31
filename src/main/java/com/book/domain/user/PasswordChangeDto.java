@@ -1,11 +1,15 @@
 package com.book.domain.user;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
-public class PasswordRequest {
+public class PasswordChangeDto {
 
     private String curPassword;
     private String newPassword;

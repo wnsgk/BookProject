@@ -20,6 +20,7 @@ public class UserService {
     @Transactional
     public User signUp(UserCreateDto userCreateDto){
         checkDuplicateUser(userCreateDto.getEmail());
+        userCreateDto.setPassword(encoder.encode(userCreateDto.getPassword()));
         User user = userCreateDto.toEntity();
         userRepository.save(user);
         return user;
@@ -35,15 +36,13 @@ public class UserService {
         return userRepository.findByEmail(email).get();
     }
 
-    public ProfileResponse getUserProfile(User user, Long id){
-        ProfileResponse profileResponse = null;
-        if(user.getId().equals(id)){
-            profileResponse = user.toProfileResponse(true);
-        } else {
-            User other = findUser(id);
-            other.toProfileResponse(false);
+    public ProfileResDto getUserProfile(User user, Long id){
+        User user2 = findUser(id);
+        ProfileResDto profileResDto = user2.toProfile();
+        if(user.getId().equals(id) || !user2.isHidden()){
+            profileResDto.setMyBooks(user2.getMyBooks());
         }
-        return profileResponse;
+        return profileResDto;
     }
 
     @Transactional
@@ -52,7 +51,7 @@ public class UserService {
     }
 
     @Transactional
-    public void updatePassword(Long id, PasswordRequest password) {
+    public void updatePassword(Long id, PasswordChangeDto password) {
         User user = findUser(id);
         String encPassword = encoder.encode(password.getCurPassword());
         if(user.getPassword().equals(encPassword)){
@@ -63,9 +62,9 @@ public class UserService {
     }
 
     @Transactional
-    public void updateName(Long id, UserUpdateDto updateDto) {
+    public void updateProfile(Long id, UserUpdateDto updateDto) {
         User user = findUser(id);
-        user.updateName(updateDto);
+        user.updateProfile(updateDto);
     }
 
     public User findUser(Long id) {

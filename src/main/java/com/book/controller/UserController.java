@@ -18,16 +18,16 @@ public class UserController {
 
 
     @GetMapping("/profile/{id}")
-    public ResponseEntity<ProfileResponse> profile(@AuthenticationPrincipal PrincipalDetails userDetail,
-                                                   @PathVariable("id") Long id) {
+    public ResponseEntity<ProfileResDto> profile(@AuthenticationPrincipal PrincipalDetails userDetail,
+                                                 @PathVariable("id") Long id) {
         User user = userDetail.getUser();
-        ProfileResponse userProfile = userService.getUserProfile(user, id);
+        ProfileResDto userProfile = userService.getUserProfile(user, id);
         return ResponseEntity.ok(userProfile);
     }
 
     @PostMapping("/password")
     public ResponseEntity<Void> changePassword(@AuthenticationPrincipal PrincipalDetails userDetails,
-                                               @RequestBody PasswordRequest password) {
+                                               @RequestBody PasswordChangeDto password) {
         userService.updatePassword(userDetails.getUser().getId(), password);
 
         return ResponseEntity.ok().build();
@@ -36,7 +36,7 @@ public class UserController {
     @PostMapping("/name")
     public ResponseEntity<Void> changeName(@AuthenticationPrincipal PrincipalDetails userDetails,
                                            @RequestBody UserUpdateDto updateDto) {
-        userService.updateName(userDetails.getUser().getId(), updateDto);
+        userService.updateProfile(userDetails.getUser().getId(), updateDto);
 
         return ResponseEntity.ok().build();
     }
