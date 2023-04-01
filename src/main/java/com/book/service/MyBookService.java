@@ -4,7 +4,7 @@ import com.book.domain.MyBook.*;
 import com.book.domain.book.Book;
 import com.book.domain.user.User;
 import com.book.exception.InvalidReqBodyException;
-import com.book.exception.UserNotFoundException;
+import com.book.exception.user.UserNotFoundException;
 import com.book.exception.book.BookNotFoundException;
 import com.book.exception.book.DuplicateBookException;
 import com.book.exception.book.UnAuthorizedAccess;

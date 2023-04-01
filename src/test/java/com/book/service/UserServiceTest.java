@@ -2,8 +2,8 @@ package com.book.service;
 
 import com.book.domain.user.User;
 import com.book.domain.user.UserCreateDto;
-import com.book.exception.DuplicateEmailException;
-import com.book.exception.UserNotFoundException;
+import com.book.exception.user.DuplicateEmailException;
+import com.book.exception.user.UserNotFoundException;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -20,7 +20,7 @@ class UserServiceTest {
 
     @Test
     void signUp() {
-        UserCreateDto createDto = new UserCreateDto("kim", "wnsgk@gmail.com", "wnsgk");
+        UserCreateDto createDto = new UserCreateDto("kim", "kim@kim.com", "1234");
         User user = userService.signUp(createDto);
 
         assertEquals(createDto.getName(), user.getName());
@@ -58,4 +58,5 @@ class UserServiceTest {
         assertEquals(user1.getPassword(), user.getPassword());
         assertEquals(user1.getEmail(), user.getEmail());
     }
+
 }

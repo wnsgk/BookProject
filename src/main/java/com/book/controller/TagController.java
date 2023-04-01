@@ -1,6 +1,6 @@
 package com.book.controller;
 
-import com.book.domain.book.UserBook;
+import com.book.domain.MyBook.MyBook;
 import com.book.service.TagService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -19,10 +19,10 @@ public class TagController {
     private final TagService tagService;
 
     @GetMapping
-    public ResponseEntity<List<UserBook>> search(@RequestParam("keyword") String keyword){
-        List<UserBook> userBooks = tagService.searchTag(keyword);
+    public ResponseEntity<List<MyBook>> search(@RequestParam("keyword") String keyword){
+        List<MyBook> myBooks = tagService.searchTag(keyword);
 
-        return ResponseEntity.ok(userBooks);
+        return ResponseEntity.ok(myBooks);
     }
 
 }

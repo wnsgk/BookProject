@@ -1,8 +1,7 @@
 package com.book.domain.book;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import com.book.domain.MyBook.MyBook;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -10,14 +9,15 @@ import java.util.List;
 
 @Entity
 @Getter
-@RequiredArgsConstructor
+@AllArgsConstructor
+@NoArgsConstructor
 public class Book {
 
     @Id @GeneratedValue
     @Column(name = "book_id")
     private Long id;
 
-    private String name;
+    private String title;
 
     private String author;
 
@@ -27,18 +27,46 @@ public class Book {
 
     private Integer page;
 
-    private String introduction;
+    private String description;
+
+    private String url;
+
+    private String image;
 
     @OneToMany(mappedBy = "book")
-    private List<UserBook> userBooks = new ArrayList<>();
+    private List<MyBook> myBooks = new ArrayList<>();
 
     @Builder
-    public Book(String name, String author, String publisher, String isbn, Integer page, String introduction){
-        this.name = name;
+    public Book(String title, String author, String publisher, String isbn, Integer page, String description, String url, String image){
+        this.title = title;
         this.author = author;
         this.publisher = publisher;
         this.isbn = isbn;
         this.page = page;
-        this.introduction = introduction;
+        this.description = description;
+        this.url = url;
+        this.image = image;
+    }
+
+    public void deleteUserBook(MyBook myBook){
+        this.myBooks.remove(myBook);
+    }
+
+    public int numberOfUser(){
+        return myBooks.size();
+    }
+
+    public BookResDto toResDto(){
+        BookResDto bookResDto = BookResDto.builder()
+                .image(image)
+                .description(description)
+                .link(url)
+                .publisher(publisher)
+                .author(author)
+                .page(page)
+                .title(title)
+                .isbn(isbn)
+                .build();
+        return bookResDto;
     }
 }

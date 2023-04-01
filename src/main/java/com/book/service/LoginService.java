@@ -2,7 +2,7 @@ package com.book.service;
 
 import com.book.domain.user.LoginDto;
 import com.book.domain.user.User;
-import com.book.exception.UserNotFoundException;
+import com.book.exception.user.UserNotFoundException;
 import com.book.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;

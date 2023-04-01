@@ -17,4 +17,6 @@ public interface MyBookRepository extends JpaRepository<MyBook, Long> {
 
 
     boolean existsByUserAndIsbn(User user, String isbn);
+
+    List<MyBook> findByIsbn(String isbn);
 }

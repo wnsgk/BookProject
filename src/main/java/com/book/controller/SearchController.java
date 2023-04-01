@@ -1,14 +1,11 @@
 package com.book.controller;
 
+import com.book.domain.book.BookResDto;
 import com.book.domain.book.SearchDto;
-import com.book.domain.book.SearchResDto;
 import com.book.service.SearchService;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import javax.validation.Valid;
 
 @RestController
 @RequiredArgsConstructor
@@ -25,7 +22,7 @@ public class SearchController {
     }
 
     @GetMapping("/detail")
-    public ResponseEntity<SearchResDto> searchDetail(@RequestParam String isbn) {
+    public ResponseEntity<BookResDto> searchDetail(@RequestParam String isbn) {
         return ResponseEntity.ok().body(searchService.searchDetail(isbn));
     }
 

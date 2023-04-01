@@ -1,9 +1,9 @@
 package com.book.service;
 
 import com.book.domain.user.*;
-import com.book.exception.DuplicateEmailException;
-import com.book.exception.PasswordException;
-import com.book.exception.UserNotFoundException;
+import com.book.exception.user.DuplicateEmailException;
+import com.book.exception.user.PasswordException;
+import com.book.exception.user.UserNotFoundException;
 import com.book.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;

@@ -1,6 +1,6 @@
 package com.book.domain.tag;
 
-import com.book.domain.book.UserBook;
+import com.book.domain.MyBook.MyBook;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -9,23 +9,23 @@ import javax.persistence.*;
 @Entity
 @Getter
 @Builder
-public class UserBookTag {
+public class MyBookTag {
 
     @Id
     @GeneratedValue
-    @Column(name = "userBookTag_id")
+    @Column(name = "myBookTag_id")
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "userBook_id")
-    private UserBook userBook;
+    @JoinColumn(name = "myBook_id")
+    private MyBook myBook;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "tag_id")
     private Tag tag;
 
     public void delete(){
-        this.tag.deleteUserBookTag(this);
-        this.userBook.deleteTag(this);
+        this.tag.deleteMyBookTag(this);
+        this.myBook.deleteTag(this);
     }
 }

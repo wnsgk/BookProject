@@ -21,7 +21,7 @@ public class Tag {
     private String name;
 
     @OneToMany(mappedBy = "tag")
-    private List<UserBookTag> userBookTags = new ArrayList<>();
+    private List<MyBookTag> myBookTags = new ArrayList<>();
 
     @Builder
     public Tag(String name){
@@ -29,13 +29,13 @@ public class Tag {
     }
 
     //== 연관관계 메서드 ==//
-    public void addTag(UserBookTag userBookTag){
-        this.userBookTags.add(userBookTag);
+    public void addTag(MyBookTag myBookTag){
+        this.myBookTags.add(myBookTag);
     }
 
-    public boolean deleteUserBookTag(UserBookTag userBookTag) {
-        this.userBookTags.remove(userBookTag);
-        if (this.userBookTags.isEmpty()) {
+    public boolean deleteMyBookTag(MyBookTag myBookTag) {
+        this.myBookTags.remove(myBookTag);
+        if (this.myBookTags.isEmpty()) {
             return true;
         }
         return false;

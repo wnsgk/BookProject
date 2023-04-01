@@ -1,11 +1,11 @@
 package com.book.service;
 
-import com.book.domain.book.UserBook;
+import com.book.domain.MyBook.MyBook;
 import com.book.domain.tag.Tag;
-import com.book.domain.tag.UserBookTag;
+import com.book.domain.tag.MyBookTag;
 import com.book.exception.book.TagNotFoundException;
 import com.book.repository.TagRepository;
-import com.book.repository.UserBookTagRepository;
+import com.book.repository.MyBookTagRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,29 +18,29 @@ import java.util.List;
 public class TagService {
 
     private final TagRepository tagRepository;
-    private final UserBookTagRepository userBookTagRepository;
+    private final MyBookTagRepository myBookTagRepository;
 
     @Transactional(readOnly = true)
-    public List<UserBook> searchTag(String name){
+    public List<MyBook> searchTag(String name){
         Tag tag = tagRepository.findByName(name).get();
-        List<UserBookTag> userBookTags = userBookTagRepository.findAllUserBook(tag.getId());
-        List<UserBook> userBookList = new ArrayList<>();
-        for (UserBookTag userBookTag: userBookTags) {
-            userBookList.add(userBookTag.getUserBook());
+        List<MyBookTag> myBookTags = myBookTagRepository.findMyBooks(tag.getId());
+        List<MyBook> myBookList = new ArrayList<>();
+        for (MyBookTag myBookTag : myBookTags) {
+            myBookList.add(myBookTag.getMyBook());
         }
-        return userBookList;
+        return myBookList;
     }
 
     @Transactional
-    public void addTag(String name, UserBook userBook){
+    public void addTag(String name, MyBook myBook){
         Tag tag = getTag(name);
-        UserBookTag userBookTag = UserBookTag.builder()
+        MyBookTag myBookTag = MyBookTag.builder()
                 .tag(tag)
-                .userBook(userBook)
+                .myBook(myBook)
                 .build();
-        userBookTagRepository.save(userBookTag);
-        tag.addTag(userBookTag);
-        userBook.addTag(userBookTag);
+        myBookTagRepository.save(myBookTag);
+        tag.addTag(myBookTag);
+        myBook.addTag(myBookTag);
     }
 
     public Tag getTag(String name){
@@ -56,23 +56,23 @@ public class TagService {
     }
 
     @Transactional
-    public void updateTag(UserBook userBook, List<String> tags){
-        for (UserBookTag userBookTag :userBook.getTags()) {
-            if(!tags.contains(userBookTag.getTag().getName())){
-                deleteTag(userBookTag.getId());
+    public void updateTag(MyBook myBook, List<String> tags){
+        for (MyBookTag myBookTag : myBook.getTags()) {
+            if(!tags.contains(myBookTag.getTag().getName())){
+                deleteTag(myBookTag.getId());
             }
         }
         for (String tagName: tags) {
-            if(!userBook.getTags().contains(tagName)) {
-                addTag(tagName, userBook);
+            if(!myBook.getTags().contains(tagName)) {
+                addTag(tagName, myBook);
             }
         }
     }
 
     @Transactional
     public void deleteTag(Long id){
-        UserBookTag userBookTag = userBookTagRepository.findById(id).orElseThrow(() -> new TagNotFoundException("태그가 존재하지 않습니다."));
-        userBookTag.delete();
+        MyBookTag myBookTag = myBookTagRepository.findById(id).orElseThrow(() -> new TagNotFoundException("태그가 존재하지 않습니다."));
+        myBookTag.delete();
         tagRepository.deleteById(id);
     }
 

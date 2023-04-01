@@ -19,9 +19,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.book.config.constants.ResponseConstants.DUPLICATION_EMAIL;
-import static com.book.config.constants.ResponseConstants.USER_NOT_FOUND;
-
 @Slf4j
 @ControllerAdvice
 public class GlobalExceptionHandler {

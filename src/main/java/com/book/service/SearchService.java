@@ -81,13 +81,13 @@ public class SearchService {
         return false;
     }
 
-    public SearchResDto searchDetail(String isbn) {
+    public BookResDto searchDetail(String isbn) {
         List<SearchDetailDto.Items> items = searchIsbn(isbn).getItem();
         if (!validIsbn(items, isbn))
             throw new InvalidParameterException("isbn = " + isbn);
 
         SearchDetailDto.Items item = items.get(0);
-        return SearchResDto.builder()
+        return BookResDto.builder()
                 .title(item.title)
                 .link(item.link)
                 .image(item.cover)
