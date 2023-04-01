@@ -1,8 +1,11 @@
 package com.book.exception.book;
 
-public class UnAuthorizedAccess extends RuntimeException{
+import com.book.exception.CustomRuntimeException;
+
+public class UnAuthorizedAccess extends CustomRuntimeException {
 
     public UnAuthorizedAccess(String message){
         super(message);
+        super.setName("UnAuthorizedAccess");
     }
 }
