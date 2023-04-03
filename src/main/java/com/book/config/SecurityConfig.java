@@ -7,12 +7,14 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class SecurityConfig {
 
     private final PrincipalOauth2UserService principalOauth2UserService;
+    private final AuthenticationFailureHandler customFailureHandler;
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
@@ -27,15 +29,16 @@ public class SecurityConfig {
                 .permitAll()
                 .and()
                 .formLogin()
-                .loginPage("/login")
-                .loginProcessingUrl("/login")
+                .loginPage("/auth/login")
+                .loginProcessingUrl("/auth/login")
+                .failureHandler(customFailureHandler)
                 .defaultSuccessUrl("/")
                 .and()
                 .oauth2Login()
-                .loginPage("/login")
+                .loginPage("/auth/login")
                 .userInfoEndpoint()
                 .userService(principalOauth2UserService);
-        http.logout().logoutUrl("/logout").logoutSuccessUrl("/");
+        http.logout().logoutUrl("/auth/logout").logoutSuccessUrl("/");
 
         return http.build();
     }

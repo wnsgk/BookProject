@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
 <html>
 <head>
 <meta charset="UTF-8">
@@ -8,10 +9,14 @@
 <h1>로그인 페이지</h1>
 <hr/>
 <!-- 시큐리티는 x-www-form-url-encoded 타입만 인식 -->
-<form action="/login" method="post">
+<form action="/auth/login" method="post">
 	<input type="text" name="username" />
 	<input type="password" name="password" />
+	<div th:if="${param.error}">
+        <p th:text="${param.exception}" class="alert alert-danger"></p>
+    </div>
 	<button>로그인</button>
+
 </form>
 
 <br />
