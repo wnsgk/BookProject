@@ -1,8 +1,6 @@
 package com.book.controller;
 
-import com.book.domain.user.LoginDto;
 import com.book.domain.user.UserCreateDto;
-import com.book.service.LoginService;
 import com.book.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,8 +17,7 @@ import javax.validation.Valid;
 @RequestMapping("/auth")
 public class LoginController {
 
-    private final LoginService loginService;
-    private final UserService userService;
+     private final UserService userService;
 
     @PostMapping("/signup")
     public ResponseEntity<Void> signUp(
@@ -38,17 +35,4 @@ public class LoginController {
         return "login/login";
     }
 
-//    @PostMapping("/login")
-//    public ResponseEntity<Void> login(@RequestBody LoginDto loginDto) {
-//        loginService.login(loginDto);
-//        log.info("username = " + loginDto.getUsername());
-//        return ResponseEntity.ok().build();
-//    }
-
-//    @GetMapping("/logout")
-//    public ResponseEntity<Void> logout(){
-//        loginService.logout();
-//
-//        return ResponseEntity.ok().build();
-//    }
 }
