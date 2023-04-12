@@ -1,6 +1,6 @@
 package com.book.domain.user;
 
-import com.book.domain.alarm.Alarm;
+import com.book.domain.alarm.Notice;
 import com.book.domain.MyBook.MyBook;
 import com.book.domain.follow.Follow;
 import lombok.*;
@@ -50,7 +50,7 @@ public class User {
     private List<MyBook> myBooks = new ArrayList<>();
 
     @OneToMany(mappedBy = "user")
-    private List<Alarm> alarms = new ArrayList<>();
+    private List<Notice> Notices = new ArrayList<>();
 
 //    private List<String> shelf = new ArrayList<>();
 

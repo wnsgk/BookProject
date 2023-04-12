@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Alarm {
+public class Notice {
 
     @Id @GeneratedValue
     private Long id;
@@ -24,4 +24,20 @@ public class Alarm {
     private String content;
 
     private LocalDateTime createdAt;
+
+    private boolean checked;
+
+    public void read(){
+        this.checked = true;
+    }
+
+    public NoticeResDto toResDto(){
+        return NoticeResDto.builder()
+                .id(this.id)
+                .content(this.content)
+                .createdAt(this.createdAt)
+                .checked(this.checked)
+                .build();
+    }
+
 }
