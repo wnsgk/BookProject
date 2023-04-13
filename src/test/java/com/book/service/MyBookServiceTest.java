@@ -2,6 +2,8 @@ package com.book.service;
 
 import com.book.domain.MyBook.MyBook;
 import com.book.domain.MyBook.MyBookCreateDto;
+import com.book.domain.tag.MyBookTag;
+import com.book.domain.tag.Tag;
 import com.book.domain.user.User;
 import com.book.domain.user.UserCreateDto;
 import com.book.exception.book.BookNotFoundException;
@@ -27,6 +29,7 @@ class MyBookServiceTest {
 
     @Autowired private UserService userService;
     @Autowired private MyBookService myBookService;
+    @Autowired private TagService tagService;
 
     private User user;
     private MyBookCreateDto createDto;
@@ -54,8 +57,11 @@ class MyBookServiceTest {
     @DisplayName("책 생성")
     void create() {
         MyBook myBook = myBookService.createMyBook(user, createDto);
+        Tag tag1 = tagService.getTag("tag1");
+
         assertEquals(user.getMyBooks().isEmpty(), false);
         assertEquals(myBook.getIsbn(), "1234512345123");
+        assertEquals(tag1.getMyBookTags().size(), 1);
     }
 
     @Test
@@ -80,11 +86,13 @@ class MyBookServiceTest {
     }
 
     @Test
-    @DisplayName("책 삭제")
+    @DisplayName("책 삭제 | 태그 삭제")
     void delete() {
         MyBook myBook = myBookService.createMyBook(user, createDto);
+        Tag tag1 = tagService.getTag("tag1");
         myBookService.deleteMyBooks(myBook.getId());
         assertThrows(BookNotFoundException.class, () -> myBookService.getMyBook(myBook.getId()));
+        assertEquals(tag1.getMyBookTags().size(), 0);
     }
 
     @Test
@@ -95,10 +103,5 @@ class MyBookServiceTest {
         assertEquals(myBook1, myBook);
     }
 
-    @Test
-    @DisplayName("태그 확인")
-    void tag(){
-        MyBook myBook = myBookService.createMyBook(user, createDto);
-        assertEquals(myBook.getTags().size(), 2);
-    }
+
 }
