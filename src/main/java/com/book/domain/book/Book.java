@@ -48,7 +48,7 @@ public class Book {
         this.image = image;
     }
 
-    public void deleteUserBook(MyBook myBook){
+    public void deleteMyBook(MyBook myBook){
         this.myBooks.remove(myBook);
     }
 
@@ -57,7 +57,7 @@ public class Book {
     }
 
     public BookResDto toResDto(){
-        BookResDto bookResDto = BookResDto.builder()
+        return BookResDto.builder()
                 .image(image)
                 .description(description)
                 .link(url)
@@ -67,6 +67,5 @@ public class Book {
                 .title(title)
                 .isbn(isbn)
                 .build();
-        return bookResDto;
     }
 }

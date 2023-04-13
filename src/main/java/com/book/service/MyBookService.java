@@ -35,7 +35,11 @@ public class MyBookService {
 
         Book book = bookService.getBook(myBookDto);
         MyBook myBook = myBookDto.create(book, user);
+        myBook.addBook(book);
+        myBook.addUser(user);
+
         myBookRepository.save(myBook);
+
         for (String tag: myBookDto.getTags()) {
             tagService.addTag(tag, myBook);
         }
@@ -44,7 +48,7 @@ public class MyBookService {
 
     @Transactional(readOnly = true)
     public MyBook getMyBook(Long id){
-        return myBookRepository.findById(id).orElseThrow(BookNotFoundException::new);
+        return myBookRepository.findById(id).orElseThrow(() -> new BookNotFoundException("책을 찾을 수 없습니다."));
     }
 
     @Transactional(readOnly = true)
@@ -55,19 +59,21 @@ public class MyBookService {
 
     @Transactional
     public void updateMyBook(Long userId, MyBookUpdateDto myBookDto){
-        MyBook myBook = myBookRepository.findById(userId).orElseThrow(BookNotFoundException::new);
+        MyBook myBook = myBookRepository.findById(userId).orElseThrow(() -> new BookNotFoundException("책을 찾을 수 없습니다."));
         myBook.update(myBookDto);
         tagService.updateTag(myBook, myBookDto.getTags());
     }
 
-    //미완성
     @Transactional
     public void deleteMyBooks(Long id){
+        MyBook myBook = getMyBook(id);
+        tagService.deleteTag(myBook);
+        myBook.deleteBook();
         myBookRepository.deleteById(id);
     }
 
     public void checkAccessPermission(Long userBookId, String email){
-        MyBook myBook = myBookRepository.findById(userBookId).orElseThrow(BookNotFoundException::new);
+        MyBook myBook = myBookRepository.findById(userBookId).orElseThrow(() -> new BookNotFoundException("책을 찾을 수 없습니다."));
         if(!myBook.isOpen()){
             User user = userRepository.findByEmail(email).orElseThrow(UserNotFoundException::new);
             if(myBook.getUser() != user){

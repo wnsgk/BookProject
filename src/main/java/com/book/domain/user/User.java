@@ -46,18 +46,16 @@ public class User {
 
     private boolean hidden;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<MyBook> myBooks = new ArrayList<>();
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Notice> Notices = new ArrayList<>();
 
-//    private List<String> shelf = new ArrayList<>();
-
-    @OneToMany(mappedBy = "toUser")
+    @OneToMany(mappedBy = "following")
     private List<Follow> following = new ArrayList<>();
 
-    @OneToMany(mappedBy = "fromUser")
+    @OneToMany(mappedBy = "follower")
     private List<Follow> follower = new ArrayList<>();
 
 
@@ -80,19 +78,27 @@ public class User {
         return false;
     }
 
+    public void addFollower(Follow follow){
+        this.follower.add(follow);
+    }
+
+    public void addFollowing(Follow follow){
+        this.following.add(follow);
+    }
+
 //    public void addShelf(String name){
 //        shelf.add(name);
 //    }
 
-    public List<MyBook> getBookInShelf(String name){
-        List<MyBook> books = new ArrayList<>();
-        for(MyBook book : this.myBooks){
-            if(book.getShelf().equals(name)) {
-                books.add(book);
-            }
-        }
-        return books;
-    }
+//    public List<MyBook> getBookInShelf(String name){
+//        List<MyBook> books = new ArrayList<>();
+//        for(MyBook book : this.myBooks){
+//            if(book.getShelf().equals(name)) {
+//                books.add(book);
+//            }
+//        }
+//        return books;
+//    }
 
     @Builder
     public User(String username, String password, String name, String email, String intro, String role, String provider, String providerId){
@@ -110,7 +116,7 @@ public class User {
         this.password = password;
     }
 
-    public void deleteUserBook(MyBook myBook){
+    public void deleteMyBook(MyBook myBook){
         this.myBooks.remove(myBook);
     }
 

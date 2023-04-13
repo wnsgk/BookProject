@@ -25,7 +25,7 @@ public class MyBookController {
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping
+    @GetMapping("/detail")
     public ResponseEntity<MyBook> getMyBook(@AuthenticationPrincipal PrincipalDetails userDetails,
                                               @RequestParam(name = "mybookid") Long id){
         myBookService.checkAccessPermission(id, userDetails.getUsername());

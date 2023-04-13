@@ -63,7 +63,7 @@ public class MyBook {
 
     @Builder
     public MyBook(User user, Book book, Integer star, String isbn, String comment, BookStatus status,
-                  LocalDate startDate, LocalDate endDate, List<MyBookTag> tags, boolean open){
+                  LocalDate startDate, LocalDate endDate, boolean open){
         this.user = user;
         this.book = book;
         this.isbn = isbn;
@@ -72,7 +72,6 @@ public class MyBook {
         this.bookStatus = status;
         this.startDate = startDate;
         this.endDate = endDate;
-        this.tags = tags;
         this.open = open;
     }
 
@@ -104,8 +103,8 @@ public class MyBook {
     }
 
     public void deleteBook(){
-        this.book.deleteUserBook(this);
-        this.user.deleteUserBook(this);
+        this.book.deleteMyBook(this);
+        this.user.deleteMyBook(this);
     }
 
     public MyBookResDto toResDto(){
