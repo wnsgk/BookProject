@@ -3,6 +3,8 @@ package com.book.domain.user;
 import com.book.domain.alarm.Notice;
 import com.book.domain.MyBook.MyBook;
 import com.book.domain.follow.Follow;
+import com.book.domain.user.dto.request.UserUpdateDto;
+import com.book.domain.user.dto.resposne.ProfileResDto;
 import lombok.*;
 import org.jetbrains.annotations.NotNull;
 

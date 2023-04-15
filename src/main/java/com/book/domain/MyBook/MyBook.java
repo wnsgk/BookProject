@@ -1,5 +1,7 @@
 package com.book.domain.MyBook;
 
+import com.book.domain.MyBook.dto.request.MyBookUpdateDto;
+import com.book.domain.MyBook.dto.resposne.MyBookResDto;
 import com.book.domain.book.Book;
 import com.book.domain.book.BookStatus;
 import com.book.domain.user.User;

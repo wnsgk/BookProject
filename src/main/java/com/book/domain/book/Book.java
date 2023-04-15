@@ -1,6 +1,7 @@
 package com.book.domain.book;
 
 import com.book.domain.MyBook.MyBook;
+import com.book.domain.book.dto.request.BookResDto;
 import lombok.*;
 
 import javax.persistence.*;

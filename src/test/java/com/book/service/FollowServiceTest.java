@@ -2,17 +2,16 @@ package com.book.service;
 
 import com.book.domain.follow.Follow;
 import com.book.domain.user.User;
-import com.book.domain.user.UserCreateDto;
-import com.book.exception.user.DuplicateEmailException;
-import com.book.repository.FollowRepository;
+import com.book.domain.user.dto.request.UserCreateDto;
+import com.book.repository.follow.FollowRepository;
+import com.book.service.follow.FollowService;
+import com.book.service.user.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.filter.CharacterEncodingFilter;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;

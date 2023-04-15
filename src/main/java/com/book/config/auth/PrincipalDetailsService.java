@@ -1,7 +1,7 @@
 package com.book.config.auth;
 
 import com.book.domain.user.User;
-import com.book.repository.UserRepository;
+import com.book.repository.user.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;

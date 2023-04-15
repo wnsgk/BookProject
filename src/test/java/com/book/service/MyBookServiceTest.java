@@ -1,13 +1,15 @@
 package com.book.service;
 
 import com.book.domain.MyBook.MyBook;
-import com.book.domain.MyBook.MyBookCreateDto;
-import com.book.domain.tag.MyBookTag;
+import com.book.domain.MyBook.dto.request.MyBookCreateDto;
 import com.book.domain.tag.Tag;
 import com.book.domain.user.User;
-import com.book.domain.user.UserCreateDto;
+import com.book.domain.user.dto.request.UserCreateDto;
 import com.book.exception.book.BookNotFoundException;
 import com.book.exception.book.DuplicateBookException;
+import com.book.service.MyBook.MyBookService;
+import com.book.service.tag.TagService;
+import com.book.service.user.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

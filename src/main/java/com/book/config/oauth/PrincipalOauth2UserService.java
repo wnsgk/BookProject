@@ -9,7 +9,7 @@ import com.book.config.oauth.provider.GoogleUserInfo;
 import com.book.config.oauth.provider.NaverUserInfo;
 import com.book.config.oauth.provider.OAuth2UserInfo;
 import com.book.domain.user.User;
-import com.book.repository.UserRepository;
+import com.book.repository.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
